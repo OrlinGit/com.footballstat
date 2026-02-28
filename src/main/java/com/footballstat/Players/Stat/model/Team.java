@@ -22,6 +22,7 @@ public class Team {
     @Column(name = "group_name",nullable = false)
     private String group;
 
+    // When I delete players from the team do I really want to delete them from the Players table???
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Player> playerList = new ArrayList<>();
 
