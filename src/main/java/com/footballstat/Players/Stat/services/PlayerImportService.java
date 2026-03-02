@@ -23,7 +23,7 @@ public class PlayerImportService {
         this.teamRepo = teamRepo;
     }
 
-    void importPlayers() throws IOException{
+    public void importPlayers() throws IOException{
         try {
             BufferedReader reader = new BufferedReader(new FileReader(pathToPlayers));
             String firstLine = reader.readLine();

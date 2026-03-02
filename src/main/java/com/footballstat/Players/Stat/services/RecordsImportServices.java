@@ -28,7 +28,7 @@ public class RecordsImportServices {
         this.matchesRepo = matchesRepo;
     }
 
-    void importRecords() throws FileNotFoundException {
+    public void importRecords() throws FileNotFoundException {
         try{
             BufferedReader reader = new BufferedReader(new FileReader(pathToRecords));
             String firstLine = reader.readLine();

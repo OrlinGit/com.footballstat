@@ -25,7 +25,7 @@ public class MatchesImportService {
         this.teamRepo = teamRepo;
     }
 
-    void importMatches() throws IOException {
+    public void importMatches() throws IOException {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(pathToMatches));
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/yyyy");
