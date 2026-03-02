@@ -34,6 +34,14 @@ public class Records {
         this.endInGameInMinutes = endInGameInMinutes;
     }
 
+    public Records(Integer recordId, Player playerId, Matches matchId, Integer startInGameInMinutes, Integer endInGameInMinutes) {
+        this.recordId = recordId;
+        this.playerId = playerId;
+        this.matchId = matchId;
+        this.startInGameInMinutes = startInGameInMinutes;
+        this.endInGameInMinutes = endInGameInMinutes;
+    }
+
     public Integer getRecordId() {
         return recordId;
     }

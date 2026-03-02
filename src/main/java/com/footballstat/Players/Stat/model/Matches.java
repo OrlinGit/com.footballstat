@@ -41,6 +41,15 @@ public class Matches {
         this.bTeamResult = BTeamResult;
     }
 
+    public Matches(Integer matchId, Team aTeam, Team bTeam, LocalDate date, Integer aTeamResult, Integer bTeamResult) {
+        this.matchId = matchId;
+        this.aTeam = aTeam;
+        this.bTeam = bTeam;
+        this.date = date;
+        this.aTeamResult = aTeamResult;
+        this.bTeamResult = bTeamResult;
+    }
+
     public Integer getMatchId() {
         return matchId;
     }

@@ -35,6 +35,14 @@ public class Player {
         this.team = team;
     }
 
+    public Player(Integer playerId, Integer teamNumber, String position, String fullName, Team team) {
+        this.playerId = playerId;
+        this.teamNumber = teamNumber;
+        this.position = position;
+        this.fullName = fullName;
+        this.team = team;
+    }
+
     public Integer getPlayerId() {
         return playerId;
     }

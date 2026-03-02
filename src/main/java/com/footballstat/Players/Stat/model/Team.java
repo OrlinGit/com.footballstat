@@ -20,19 +20,27 @@ public class Team {
     private String managerFullName;
 
     @Column(name = "group_name",nullable = false)
-    private String group;
+    private String groupName;
 
     // When I delete players from the team do I really want to delete them from the Players table???
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Player> playerList = new ArrayList<>();
 
-    public Team() {
+    public Team(Integer id, String name, String managerName, String groupName) {
     }
 
     public Team(String teamName, String managerFullName, String group) {
         this.teamName = teamName;
         this.managerFullName = managerFullName;
-        this.group = group;
+        this.groupName = group;
+    }
+
+    public Team(Integer teamId, String teamName, String managerFullName, String groupName, List<Player> playerList) {
+        this.teamId = teamId;
+        this.teamName = teamName;
+        this.managerFullName = managerFullName;
+        this.groupName = groupName;
+        this.playerList = playerList;
     }
 
     public Integer getTeamId() {
@@ -59,12 +67,12 @@ public class Team {
         this.managerFullName = managerFullName;
     }
 
-    public String getGroup() {
-        return group;
+    public String getGroupName() {
+        return groupName;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
     public List<Player> getPlayerList() {
