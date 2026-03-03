@@ -12,11 +12,11 @@ public class Records {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "player_id", nullable = false)
-    private Player playerId;
+    private Player player;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "match_id", nullable = false)
-    private Matches matchId;
+    private Matches matches;
 
     @Column
     private Integer startInGameInMinutes;
@@ -27,17 +27,9 @@ public class Records {
     public Records() {
     }
 
-    public Records(Player playerId, Matches matchId, Integer startInGameInMinutes, Integer endInGameInMinutes) {
-        this.playerId = playerId;
-        this.matchId = matchId;
-        this.startInGameInMinutes = startInGameInMinutes;
-        this.endInGameInMinutes = endInGameInMinutes;
-    }
-
-    public Records(Integer recordId, Player playerId, Matches matchId, Integer startInGameInMinutes, Integer endInGameInMinutes) {
-        this.recordId = recordId;
-        this.playerId = playerId;
-        this.matchId = matchId;
+    public Records(Player player, Matches matches, Integer startInGameInMinutes, Integer endInGameInMinutes) {
+        this.player = player;
+        this.matches = matches;
         this.startInGameInMinutes = startInGameInMinutes;
         this.endInGameInMinutes = endInGameInMinutes;
     }
@@ -50,20 +42,20 @@ public class Records {
         this.recordId = recordId;
     }
 
-    public Player getPlayerId() {
-        return playerId;
+    public Player getPlayer() {
+        return player;
     }
 
-    public void setPlayerId(Player playerId) {
-        this.playerId = playerId;
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
-    public Matches getMatchId() {
-        return matchId;
+    public Matches getMatches() {
+        return matches;
     }
 
-    public void setMatchId(Matches matchId) {
-        this.matchId = matchId;
+    public void setMatches(Matches matches) {
+        this.matches = matches;
     }
 
     public Integer getStartInGameInMinutes() {

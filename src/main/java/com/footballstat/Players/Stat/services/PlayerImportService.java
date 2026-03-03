@@ -4,16 +4,19 @@ import com.footballstat.Players.Stat.model.Player;
 import com.footballstat.Players.Stat.model.Team;
 import com.footballstat.Players.Stat.repository.PlayerRepo;
 import com.footballstat.Players.Stat.repository.TeamRepo;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 @Service
+@Transactional
 public class PlayerImportService {
 
-    private final String pathToPlayers = "src/main/resources/static/players.csv";
+    ClassPathResource pathToPlayers = new ClassPathResource("static/players.csv");
 
     private final PlayerRepo playerRepo;
     private final TeamRepo teamRepo;
@@ -23,25 +26,22 @@ public class PlayerImportService {
         this.teamRepo = teamRepo;
     }
 
-    public void importPlayers() throws IOException{
+    public void importPlayers() {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(pathToPlayers));
-            String firstLine = reader.readLine();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(pathToPlayers.getInputStream()));
             String line = reader.readLine();
 
-            while (line != null) {
+            while ((line = reader.readLine())!= null) {
                 String[] data = line.split(",");
-                Integer playerId = Integer.parseInt(data[0]);
                 Integer teamNumber = Integer.parseInt(data[1]);
                 String position = data[2];
                 String fullName = data[3];
-                Team teamId = teamRepo.getReferenceById(Integer.parseInt(data[4]));
-                Player player = new Player(playerId, teamNumber, position, fullName, teamId);
+                Team team = teamRepo.getReferenceById(Integer.parseInt(data[4]));
+                Player player = new Player(teamNumber, position, fullName, team);
                 playerRepo.save(player);
-                line = reader.readLine();
             }
-        } catch (RuntimeException e) {
-                throw new RuntimeException("Error reading file!");
+        } catch (IOException e) {
+                throw new RuntimeException(e);
         }
     }
 }

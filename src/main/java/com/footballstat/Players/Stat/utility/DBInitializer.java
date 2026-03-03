@@ -9,12 +9,13 @@ import com.footballstat.Players.Stat.services.PlayerImportService;
 import com.footballstat.Players.Stat.services.RecordsImportServices;
 import com.footballstat.Players.Stat.services.TeamImportService;
 import jakarta.annotation.PostConstruct;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 @Component
-public class DBInitializer {
+public class DBInitializer implements CommandLineRunner {
 
     private final TeamImportService teamImportService;
     private final PlayerImportService playerImportService;
@@ -44,20 +45,11 @@ public class DBInitializer {
         this.recordsRepo = recordsRepo;
     }
 
-    @PostConstruct
-
-    public void initializeDB() throws IOException {
-        if ( teamRepo.count() == 0){
-            teamImportService.importTeams();
-        }
-        if (playerRepo.count() == 0) {
-            playerImportService.importPlayers();
-        }
-        if (matchesRepo.count() == 0) {
-            matchesImportService.importMatches();
-        }
-        if(recordsRepo.count() == 0) {
-            recordsImportServices.importRecords();
-        }
+    @Override
+    public void run(String... args) throws Exception {
+                teamImportService.importTeams();
+                playerImportService.importPlayers();
+                matchesImportService.importMatches();
+                recordsImportServices.importRecords();
     }
 }

@@ -26,21 +26,13 @@ public class Team {
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Player> playerList = new ArrayList<>();
 
-    public Team(Integer id, String name, String managerName, String groupName) {
+    public Team() {
     }
 
-    public Team(String teamName, String managerFullName, String group) {
-        this.teamName = teamName;
-        this.managerFullName = managerFullName;
-        this.groupName = group;
-    }
-
-    public Team(Integer teamId, String teamName, String managerFullName, String groupName, List<Player> playerList) {
-        this.teamId = teamId;
+    public Team(String teamName, String managerFullName, String groupName) {
         this.teamName = teamName;
         this.managerFullName = managerFullName;
         this.groupName = groupName;
-        this.playerList = playerList;
     }
 
     public Integer getTeamId() {

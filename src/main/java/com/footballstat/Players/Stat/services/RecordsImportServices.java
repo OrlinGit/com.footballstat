@@ -6,17 +6,18 @@ import com.footballstat.Players.Stat.model.Records;
 import com.footballstat.Players.Stat.repository.MatchesRepo;
 import com.footballstat.Players.Stat.repository.PlayerRepo;
 import com.footballstat.Players.Stat.repository.RecordsRepo;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+
 
 @Service
+@Transactional
 public class RecordsImportServices {
 
-    private final String pathToRecords = "src/main/resources/static/records.csv";
+    private final ClassPathResource pathToRecords = new ClassPathResource("static/records.csv");
 
     private final RecordsRepo recordsRepo;
     private final PlayerRepo playerRepo;
@@ -28,30 +29,33 @@ public class RecordsImportServices {
         this.matchesRepo = matchesRepo;
     }
 
-    public void importRecords() throws FileNotFoundException {
-        try{
-            BufferedReader reader = new BufferedReader(new FileReader(pathToRecords));
-            String firstLine = reader.readLine();
-            String line = reader.readLine();
+    public void importRecords() {
 
-            while(line != null){
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(pathToRecords.getInputStream()))) {
+            String line = reader.readLine(); // Skip header
+
+            while ((line = reader.readLine()) != null) {
 
                 String[] data = line.split(",");
-                Integer id = Integer.parseInt(data[0]);
                 Integer playerId = Integer.parseInt(data[1]);
                 Integer matchId = Integer.parseInt(data[2]);
                 Integer fromMinutes = Integer.parseInt(data[3]);
-                Integer toMinutes = data[4].equals("NULL")? 90 : Integer.parseInt(data[4]);
-                Player player = playerRepo.getReferenceById(playerId);
-                Matches matches = matchesRepo.getReferenceById(matchId);
-                Records records = new Records(id, player, matches, fromMinutes, toMinutes);
-                recordsRepo.save(records);
-                line = reader.readLine();
-
+                Integer toMinutes = data[4].contains("NULL") ? 90 : parseScoreValue(data[4]);
+                Player player = playerRepo.findById(playerId)
+                        .orElseThrow(() ->
+                                new RuntimeException("Player not found " + playerId));
+                Matches match = matchesRepo.findById(matchId)
+                        .orElseThrow(() ->
+                                new RuntimeException("Match not found " + matchId));
+                recordsRepo.save(new Records(player, match, fromMinutes, toMinutes));
             }
 
-        } catch (IOException e) {
-            throw new RuntimeException("Error reading file!");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+    }
+
+    private int parseScoreValue(String value) {
+        return Integer.parseInt(value.replaceAll("\\D", ""));
     }
 }

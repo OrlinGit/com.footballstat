@@ -25,29 +25,20 @@ public class Matches {
     private LocalDate date;
 
     @Column(nullable = false)
-    private Integer aTeamResult;
+    private String aTeamResult;
 
     @Column(nullable = false)
-    private Integer bTeamResult;
+    private String bTeamResult;
 
     public Matches() {
     }
 
-    public Matches(Team aTeam, Team bTeam, LocalDate date, Integer ATeamResult, Integer BTeamResult) {
+    public Matches(Team aTeam, Team bTeam, LocalDate date, String ATeamResult, String BTeamResult) {
         this.aTeam = aTeam;
         this.bTeam = bTeam;
         this.date = date;
         this.aTeamResult = ATeamResult;
         this.bTeamResult = BTeamResult;
-    }
-
-    public Matches(Integer matchId, Team aTeam, Team bTeam, LocalDate date, Integer aTeamResult, Integer bTeamResult) {
-        this.matchId = matchId;
-        this.aTeam = aTeam;
-        this.bTeam = bTeam;
-        this.date = date;
-        this.aTeamResult = aTeamResult;
-        this.bTeamResult = bTeamResult;
     }
 
     public Integer getMatchId() {
@@ -82,19 +73,19 @@ public class Matches {
         this.date = date;
     }
 
-    public Integer getaTeamResult() {
+    public String getaTeamResult() {
         return aTeamResult;
     }
 
-    public void setaTeamResult(Integer aTeamResult) {
+    public void setaTeamResult(String aTeamResult) {
         this.aTeamResult = aTeamResult;
     }
 
-    public Integer getbTeamResult() {
+    public String getbTeamResult() {
         return bTeamResult;
     }
 
-    public void setbTeamResult(Integer bTeamResult) {
+    public void setbTeamResult(String bTeamResult) {
         this.bTeamResult = bTeamResult;
     }
 }
