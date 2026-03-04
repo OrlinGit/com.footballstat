@@ -1,0 +1,17 @@
+package com.footballstat.Players.Stat.controller;
+
+import com.footballstat.Players.Stat.repository.RecordsService;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("api/players/MVP")
+public class PlayerController {
+
+    public final RecordsService recordsService;
+
+
+    public PlayerController(RecordsService recordsService) {
+        this.recordsService = recordsService;
+    }
+}
