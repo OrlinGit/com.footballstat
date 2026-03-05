@@ -1,0 +1,4 @@
+package com.footballstat.Players.Stat.DTO;
+
+public class PlayerDTO {
+}
