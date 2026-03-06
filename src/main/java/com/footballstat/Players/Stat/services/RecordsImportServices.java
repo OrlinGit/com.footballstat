@@ -47,7 +47,8 @@ public class RecordsImportServices {
                 Matches match = matchesRepo.findById(matchId)
                         .orElseThrow(() ->
                                 new RuntimeException("Match not found " + matchId));
-                recordsRepo.save(new Records(player, match, fromMinutes, toMinutes));
+                Records record = new Records(player, match, fromMinutes, toMinutes);
+                recordsRepo.save(record);
             }
 
         } catch (Exception e) {

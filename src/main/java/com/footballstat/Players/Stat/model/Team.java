@@ -19,7 +19,7 @@ public class Team {
     @Column(nullable = false)
     private String managerFullName;
 
-    @Column(name = "group_name",nullable = false)
+    @Column(nullable = false)
     private String groupName;
 
     // When I delete players from the team do I really want to delete them from the Players table???
