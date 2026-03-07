@@ -27,11 +27,15 @@ public class PlayerImportService {
     }
 
     public void importPlayers() {
+        if (playerRepo.count() > 0) {
+            return;
+        }
+
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(pathToPlayers.getInputStream()));
             String line = reader.readLine();
 
-            while ((line = reader.readLine())!= null) {
+            while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
                 Integer teamNumber = Integer.parseInt(data[1]);
                 String position = data[2];
@@ -41,7 +45,7 @@ public class PlayerImportService {
                 playerRepo.save(player);
             }
         } catch (IOException e) {
-                throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
     }
 }

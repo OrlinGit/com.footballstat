@@ -29,6 +29,9 @@ public class MatchesImportService {
     }
 
     public void importMatches() {
+        if (matchesRepo.count() > 0) {
+            return;
+        }
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(pathToMatches.getInputStream()));
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
@@ -47,7 +50,7 @@ public class MatchesImportService {
                 Team bTeam = teamRepo.getReferenceById(bTeamId);
                 Matches matches = new Matches(aTeam, bTeam, date, aTeamResult, bTeamResult);
                 matchesRepo.save(matches);
-             }
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

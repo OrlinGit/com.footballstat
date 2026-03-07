@@ -31,8 +31,12 @@ public class RecordsImportServices {
 
     public void importRecords() {
 
+        if (recordsRepo.count() > 0) {
+            return;
+        }
+
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(pathToRecords.getInputStream()))) {
-            String line = reader.readLine(); // Skip header
+            String line = reader.readLine();
 
             while ((line = reader.readLine()) != null) {
 

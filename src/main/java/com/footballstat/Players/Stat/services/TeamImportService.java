@@ -23,20 +23,23 @@ public class TeamImportService {
     }
 
     public void importTeams() {
-         try {
-             BufferedReader reader = new BufferedReader(new InputStreamReader(pathToTeams.getInputStream()));
-             String line = reader.readLine();
+        if (teamRepo.count() > 0) {
+            return;
+        }
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(pathToTeams.getInputStream()));
+            String line = reader.readLine();
 
-             while ((line = reader.readLine())!= null) {
-                 String[] data = line.split(",");
-                 String name = data[1];
-                 String managerName = data[2];
-                 String groupName = data[3];
-                 Team team = new Team(name, managerName, groupName);
-                 teamRepo.save(team);
-             }
-         } catch (IOException e){
-             throw new RuntimeException(e);
-         }
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                String name = data[1];
+                String managerName = data[2];
+                String groupName = data[3];
+                Team team = new Team(name, managerName, groupName);
+                teamRepo.save(team);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
