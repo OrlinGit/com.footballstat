@@ -24,7 +24,6 @@ public class PlayerService implements PlayerInterface {
         this.teamService = teamService;
     }
 
-    @Override
     @Transactional
     public Player createPlayer(@Valid PlayerDTO playerDTO) {
         Player player = new Player();
