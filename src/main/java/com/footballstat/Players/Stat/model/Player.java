@@ -71,7 +71,8 @@ public class Player {
         return team;
     }
 
-    public void setTeam(Team team) {
+    public Team setTeam(Team team) {
         this.team = team;
+        return team;
     }
 }
