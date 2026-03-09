@@ -1,6 +1,9 @@
 package com.footballstat.Players.Stat.DTO;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.footballstat.Players.Stat.utility.DateDeserializer;
 import jakarta.validation.constraints.*;
+
 
 import java.time.LocalDate;
 
@@ -16,6 +19,7 @@ public class MatchesDTO {
 
     @NotNull
     @PastOrPresent
+    @JsonDeserialize(using = DateDeserializer.class)
     private LocalDate date;
 
     @NotBlank

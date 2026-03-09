@@ -31,27 +31,27 @@ import java.util.stream.Collectors;
             for (List<Records> matchRecords : byMatch.values()) {
                 for (int i = 0; i < matchRecords.size(); i++) {
                     for (int j = i + 1; j < matchRecords.size(); j++) {
-                        Records r1 = matchRecords.get(i);
-                        Records r2 = matchRecords.get(j);
+                        Records player1 = matchRecords.get(i);
+                        Records player2 = matchRecords.get(j);
 
                         int overlap = calculateOverlap(
-                                r1.getStartInGameInMinutes(),
-                                r1.getEndInGameInMinutes(),
-                                r2.getStartInGameInMinutes(),
-                                r2.getEndInGameInMinutes()
+                                player1.getStartInGameInMinutes(),
+                                player1.getEndInGameInMinutes(),
+                                player2.getStartInGameInMinutes(),
+                                player2.getEndInGameInMinutes()
                         );
 
                         if (overlap > 0) {
 
-                            int p1 = r1.getPlayer().getPlayerId();
-                            int p2 = r2.getPlayer().getPlayerId();
+                            int p1 = player1.getPlayer().getPlayerId();
+                            int p2 = player2.getPlayer().getPlayerId();
 
                             int min = Math.min(p1, p2);
                             int max = Math.max(p1, p2);
 
                             String key = min + "-" + max;
                             pairMap.computeIfAbsent(key, k -> new PlayerStats(min, max))
-                                    .addMatch(r1.getMatches().getMatchId(), overlap);
+                                    .addMatch(player1.getMatches().getMatchId(), overlap);
                         }
                     }
                 }
